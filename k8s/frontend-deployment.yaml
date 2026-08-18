@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend-container
-        image: your-dockerhub-username/renthere-frontend:latest
+        image: singhnikhil212/renthere-frontend:latest
         ports:
         - containerPort: 80
         resources:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend-container
-        image: your-dockerhub-username/renthere-backend:latest
+        image: singhnikhil212/renthere-backend:latest
         ports:
         - containerPort: 5000
         env:

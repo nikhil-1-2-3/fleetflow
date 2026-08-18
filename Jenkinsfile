@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_REGISTRY = 'your-dockerhub-username' // TODO: Replace with your actual Docker Hub username
+        DOCKER_REGISTRY = 'singhnikhil212' // TODO: Replace with your actual Docker Hub username
         FRONTEND_IMAGE = 'renthere-frontend'
         BACKEND_IMAGE = 'renthere-backend'
         KUBECONFIG_CREDENTIAL_ID = 'your-kubeconfig-id' // TODO: Set this up in Jenkins credentials
