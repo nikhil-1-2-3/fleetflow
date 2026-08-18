@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: renthere-backend-service
+spec:
+  type: ClusterIP # Internal service only
+  selector:
+    app: renthere-backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

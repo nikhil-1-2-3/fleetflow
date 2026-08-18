@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: renthere-frontend-service
+spec:
+  type: LoadBalancer # Exposes to the internet
+  selector:
+    app: renthere-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80

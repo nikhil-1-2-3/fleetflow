@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: renthere-frontend
+  labels:
+    app: renthere-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: renthere-frontend
+  template:
+    metadata:
+      labels:
+        app: renthere-frontend
+    spec:
+      containers:
+      - name: frontend-container
+        image: your-dockerhub-username/renthere-frontend:latest
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
