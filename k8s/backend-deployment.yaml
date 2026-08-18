@@ -19,14 +19,9 @@ spec:
         image: singhnikhil212/renthere-backend:latest
         ports:
         - containerPort: 5000
-        env:
-        # TODO: In production, these should be securely injected via K8s Secrets
-        - name: NODE_ENV
-          value: "production"
-        - name: PORT
-          value: "5000"
-        # - name: MONGO_URI
-        #   value: "your-mongodb-connection-string"
+        envFrom:
+        - secretRef:
+            name: renthere-secrets
         resources:
           limits:
             memory: "256Mi"
