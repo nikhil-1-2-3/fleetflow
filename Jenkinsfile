@@ -42,13 +42,11 @@ pipeline {
             steps {
                 script {
                     echo "Pushing Docker images..."
-                    // TODO: You will need to run 'docker login' on your Windows machine first, or configure Jenkins credentials
-                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:${env.BUILD_ID}"
-                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:latest"
-                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:${env.BUILD_ID}"
-                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:latest"
-                    
-                    echo "Skipping push for demo. Uncomment lines above to enable."
+                    // Since you are logged into Docker locally, Jenkins will use your credentials
+                    powershell "docker push ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:${env.BUILD_ID}"
+                    powershell "docker push ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:latest"
+                    powershell "docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:${env.BUILD_ID}"
+                    powershell "docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:latest"
                 }
             }
         }
