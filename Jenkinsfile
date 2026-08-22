@@ -21,7 +21,8 @@ pipeline {
                     steps {
                         script {
                             echo "Building Backend image..."
-                            backendImage = docker.build("${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:${env.BUILD_ID}", "./backend")
+                            powershell "docker build -t ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:${env.BUILD_ID} ./backend"
+                            powershell "docker tag ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:${env.BUILD_ID} ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:latest"
                         }
                     }
                 }
@@ -29,7 +30,8 @@ pipeline {
                     steps {
                         script {
                             echo "Building Frontend image..."
-                            frontendImage = docker.build("${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:${env.BUILD_ID}", "./frontend")
+                            powershell "docker build -t ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:${env.BUILD_ID} ./frontend"
+                            powershell "docker tag ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:${env.BUILD_ID} ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:latest"
                         }
                     }
                 }
@@ -40,14 +42,13 @@ pipeline {
             steps {
                 script {
                     echo "Pushing Docker images..."
-                    // TODO: Configure docker registry credentials in Jenkins before uncommenting
-                    // docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
-                    //     backendImage.push()
-                    //     backendImage.push('latest')
-                    //     frontendImage.push()
-                    //     frontendImage.push('latest')
-                    // }
-                    echo "Skipping push for demo. Read comments to enable actual pushing."
+                    // TODO: You will need to run 'docker login' on your Windows machine first, or configure Jenkins credentials
+                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:${env.BUILD_ID}"
+                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.BACKEND_IMAGE}:latest"
+                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:${env.BUILD_ID}"
+                    // powershell "docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE}:latest"
+                    
+                    echo "Skipping push for demo. Uncomment lines above to enable."
                 }
             }
         }
