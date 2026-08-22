@@ -56,13 +56,16 @@ pipeline {
             steps {
                 script {
                     echo "Deploying to Kubernetes cluster..."
-                    // TODO: Replace with actual deployment steps once KUBECONFIG is set up
-                    // withKubeConfig([credentialsId: env.KUBECONFIG_CREDENTIAL_ID]) {
-                    //     sh "sed -i 's/renthere-backend:latest/${env.DOCKER_REGISTRY}\\/${env.BACKEND_IMAGE}:${env.BUILD_ID}/g' k8s/backend-deployment.yaml"
-                    //     sh "sed -i 's/renthere-frontend:latest/${env.DOCKER_REGISTRY}\\/${env.FRONTEND_IMAGE}:${env.BUILD_ID}/g' k8s/frontend-deployment.yaml"
-                    //     sh "kubectl apply -f k8s/"
-                    // }
-                    echo "Skipping deploy for demo. Read comments to enable actual deployment."
+                    
+                    // Using PowerShell because Jenkins is running natively on Windows
+                    powershell """
+                        # Update the tags to the new build ID
+                        (Get-Content k8s/backend-deployment.yaml) -replace 'image: singhnikhil212/renthere-backend:.*', 'image: singhnikhil212/renthere-backend:${env.BUILD_ID}' | Set-Content k8s/backend-deployment.yaml
+                        (Get-Content k8s/frontend-deployment.yaml) -replace 'image: singhnikhil212/renthere-frontend:.*', 'image: singhnikhil212/renthere-frontend:${env.BUILD_ID}' | Set-Content k8s/frontend-deployment.yaml
+                        
+                        # Apply to the cluster
+                        kubectl apply -f k8s/
+                    """
                 }
             }
         }
