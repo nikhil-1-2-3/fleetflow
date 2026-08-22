@@ -64,8 +64,8 @@ pipeline {
                         (Get-Content k8s/backend-deployment.yaml) -replace 'image: singhnikhil212/renthere-backend:.*', 'image: singhnikhil212/renthere-backend:${env.BUILD_ID}' | Set-Content k8s/backend-deployment.yaml
                         (Get-Content k8s/frontend-deployment.yaml) -replace 'image: singhnikhil212/renthere-frontend:.*', 'image: singhnikhil212/renthere-frontend:${env.BUILD_ID}' | Set-Content k8s/frontend-deployment.yaml
                         
-                        # Apply to the cluster
-                        kubectl apply -f k8s/
+                        # Apply to the cluster using the user's kubeconfig (since Jenkins SYSTEM user doesn't have one)
+                        kubectl --kubeconfig="C:\\Users\\nikhil singh\\.kube\\config" apply -f k8s/
                     """
                 }
             }
